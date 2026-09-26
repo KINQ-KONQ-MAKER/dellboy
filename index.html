@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Préparation des postes Dell</title>
+<style>
+  :root{
+    --bg:#0f172a;
+    --card:#1e293b;
+    --card-border:#334155;
+    --accent:#3b82f6;
+    --accent2:#0ea5e9;
+    --green:#22c55e;
+    --yellow:#eab308;
+    --text:#e2e8f0;
+    --muted:#94a3b8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    background:radial-gradient(circle at 20% 0%, #1e293b 0%, #0f172a 55%);
+    color:var(--text);
+    min-height:100vh;
+    padding:32px 16px 64px;
+  }
+  header{
+    max-width:980px;
+    margin:0 auto 32px;
+    text-align:center;
+  }
+  header h1{
+    font-size:28px;
+    margin:0 0 8px;
+    background:linear-gradient(90deg,#60a5fa,#38bdf8);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  header p{
+    color:var(--muted);
+    margin:0;
+    font-size:14px;
+  }
+  .wrap{
+    max-width:980px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(225px,1fr));
+    gap:20px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:14px;
+    padding:22px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    box-shadow:0 4px 18px rgba(0,0,0,.25);
+  }
+  .card .step{
+    font-size:12px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:1px;
+  }
+  .card h2{
+    margin:0;
+    font-size:19px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .card h2 .icon{
+    width:34px;height:34px;
+    border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:18px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    flex-shrink:0;
+  }
+  .card p.desc{
+    color:var(--muted);
+    font-size:13.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .card ul{
+    margin:0;
+    padding-left:18px;
+    font-size:13px;
+    color:var(--text);
+    line-height:1.6;
+  }
+  .btn{
+    margin-top:auto;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:white;
+    border:none;
+    padding:11px 16px;
+    border-radius:9px;
+    font-size:14px;
+    font-weight:600;
+    cursor:pointer;
+    transition:transform .1s ease, opacity .15s ease;
+  }
+  .btn:hover{opacity:.9;}
+  .btn:active{transform:scale(0.98);}
+  .check{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .check input{width:16px;height:16px;accent-color:var(--green);}
+  .app-list{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    margin:0;
+  }
+  .app-list label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13.5px;
+    color:var(--text);
+    cursor:pointer;
+  }
+  .app-list input{width:16px;height:16px;accent-color:var(--accent2);flex-shrink:0;}
+  .app-list-actions{
+    display:flex;
+    gap:12px;
+    margin-top:-4px;
+  }
+  .link-btn{
+    background:none;
+    border:none;
+    color:var(--accent2);
+    font-size:12px;
+    cursor:pointer;
+    padding:0;
+    text-decoration:underline;
+  }
+  .instructions{
+    max-width:980px;
+    margin:36px auto 0;
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:14px;
+    padding:22px 26px;
+  }
+  .instructions h2{
+    margin-top:0;
+    font-size:17px;
+  }
+  .instructions ol{
+    padding-left:20px;
+    line-height:1.8;
+    font-size:14px;
+    color:var(--text);
+  }
+  .instructions code{
+    background:#0b1220;
+    border:1px solid var(--card-border);
+    padding:2px 6px;
+    border-radius:5px;
+    font-size:12.5px;
+    color:#7dd3fc;
+  }
+  .progress-wrap{
+    max-width:980px;
+    margin:0 auto 24px;
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:14px;
+    padding:16px 22px;
+    display:flex;
+    align-items:center;
+    gap:16px;
+  }
+  .progress-bar-bg{
+    flex:1;
+    height:10px;
+    background:#0b1220;
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .progress-bar-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--green),#86efac);
+    transition:width .3s ease;
+  }
+  .progress-label{
+    font-size:13px;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+  footer{
+    max-width:980px;
+    margin:32px auto 0;
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+  }
+  .reset-link{
+    color:var(--muted);
+    text-decoration:underline;
+    cursor:pointer;
+    background:none;
+    border:none;
+    font-size:12px;
+  }
+  /* --- Mode de lancement --- */
+  .mode-wrap{
+    max-width:980px;
+    margin:0 auto 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .seg{
+    display:inline-flex;
+    background:#0b1220;
+    border:1px solid var(--card-border);
+    border-radius:10px;
+    padding:3px;
+  }
+  .seg button{
+    background:none;
+    border:none;
+    color:var(--muted);
+    padding:7px 14px;
+    border-radius:7px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .seg button.active{
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#fff;
+  }
+  /* --- Groupes d'applications --- */
+  .app-group-title{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--muted);
+    margin:6px 0 2px;
+  }
+  .app-list .hint{
+    font-size:11.5px;
+    color:var(--muted);
+    margin:-2px 0 4px 24px;
+    line-height:1.4;
+  }
+  .sub-config{
+    margin:2px 0 6px 24px;
+    padding:10px 12px;
+    background:#0b1220;
+    border:1px solid var(--card-border);
+    border-radius:9px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .sub-config label.field{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+    font-size:12px;
+    color:var(--muted);
+    cursor:default;
+  }
+  .sub-config input[type=text],
+  .sub-config input[type=email]{
+    width:100%;
+    height:auto;
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:6px;
+    padding:7px 9px;
+    color:var(--text);
+    font-size:13px;
+  }
+  .sub-config select{
+    width:100%;
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:6px;
+    padding:7px 9px;
+    color:var(--text);
+    font-size:13px;
+  }
+  .sub-config input.invalid{border-color:#ef4444;}
+  .hidden{display:none !important;}
+  /* --- Commandes copiables --- */
+  .cmd-line{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:6px 0;
+  }
+  .cmd-line code{
+    flex:1;
+    overflow-x:auto;
+    white-space:nowrap;
+    display:block;
+    padding:6px 8px !important;
+  }
+  .copy-btn{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    color:var(--text);
+    border-radius:6px;
+    padding:5px 10px;
+    font-size:12px;
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .note{
+    font-size:12.5px;
+    color:var(--muted);
+    border-left:3px solid var(--yellow);
+    padding-left:10px;
+    margin-top:14px;
+    line-height:1.5;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Préparation des postes Dell</h1>
+  <p>Télécharge et exécute les 4 scripts dans l'ordre pour préparer un poste neuf ou reconditionné.</p>
+</header>
+
+<div class="mode-wrap">
+  <span>Format des scripts :</span>
+  <div class="seg">
+    <button id="mode-cmd" class="active" onclick="setMode('cmd')">Double-clic (.cmd)</button>
+    <button id="mode-ps1" onclick="setMode('ps1')">PowerShell (.ps1)</button>
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-label" id="progress-label">0 / 4 étapes cochées</div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
+  <button class="reset-link" onclick="resetChecklist()">réinitialiser</button>
+</div>
+
+<div class="wrap">
+
+  <!-- CARD 1 : WINDOWS UPDATE -->
+  <div class="card">
+    <div class="step">Étape 1</div>
+    <h2><span class="icon">🪟</span> Mises à jour Windows</h2>
+    <p class="desc">Installe toutes les mises à jour Windows disponibles via le module PSWindowsUpdate.</p>
+    <ul>
+      <li>Installe PSWindowsUpdate si absent</li>
+      <li>Recherche &amp; installe toutes les mises à jour</li>
+      <li>Redémarrage à faire manuellement ensuite</li>
+    </ul>
+    <label class="check"><input type="checkbox" id="chk-1" onchange="updateProgress()"> Fait sur ce poste</label>
+    <button class="btn" id="btn-1" onclick="downloadScript(1)">⬇ Télécharger 01-windows-update.cmd</button>
+  </div>
+
+  <!-- CARD 2 : DELL UPDATE -->
+  <div class="card">
+    <div class="step">Étape 2</div>
+    <h2><span class="icon">🖥️</span> Mises à jour Dell</h2>
+    <p class="desc">Installe (si besoin) Dell Command | Update puis applique BIOS, pilotes et firmware.</p>
+    <ul>
+      <li>Installe Dell Command | Update via winget si absent</li>
+      <li>Scan puis application des mises à jour</li>
+      <li>Redémarrage conseillé après une mise à jour BIOS</li>
+    </ul>
+    <label class="check"><input type="checkbox" id="chk-2" onchange="updateProgress()"> Fait sur ce poste</label>
+    <button class="btn" id="btn-2" onclick="downloadScript(2)">⬇ Télécharger 02-dell-update.cmd</button>
+  </div>
+
+  <!-- CARD 3 : APPS -->
+  <div class="card">
+    <div class="step">Étape 3</div>
+    <h2><span class="icon">📦</span> Applications</h2>
+    <p class="desc">Coche les applications à installer, le script est généré en fonction de ta sélection.</p>
+    <div class="app-list-actions">
+      <button class="link-btn" onclick="toggleAllApps(true)">tout cocher</button>
+      <button class="link-btn" onclick="toggleAllApps(false)">tout décocher</button>
+    </div>
+    <div class="app-list" id="app-list">
+      <div class="app-group-title">Général</div>
+      <label><input type="checkbox" class="app-checkbox" id="app-chrome" checked onchange="onAppToggle()"> Google Chrome</label>
+      <label><input type="checkbox" class="app-checkbox" id="app-firefox" checked onchange="onAppToggle()"> Mozilla Firefox</label>
+      <label><input type="checkbox" class="app-checkbox" id="app-vlc" checked onchange="onAppToggle()"> VLC</label>
+      <label><input type="checkbox" class="app-checkbox" id="app-7zip" checked onchange="onAppToggle()"> 7-Zip</label>
+      <label><input type="checkbox" class="app-checkbox" id="app-adobe" checked onchange="onAppToggle()"> Adobe Creative Cloud</label>
+      <label><input type="checkbox" class="app-checkbox" id="app-teams" checked onchange="onAppToggle()"> Microsoft Teams</label>
+      <div class="hint">Nouveau Teams, provisionné pour tous les utilisateurs du poste.</div>
+
+      <div class="app-group-title">3D / rendu</div>
+      <label><input type="checkbox" class="app-checkbox" id="app-rhino" onchange="onAppToggle()"> Rhino 8</label>
+      <div class="sub-config hidden" id="cfg-rhino">
+        <label class="field">E-mail pour le téléchargement McNeel (obligatoire)
+          <input type="email" id="rhino-email" placeholder="it@client.fr" oninput="onAppToggle()">
+        </label>
+        <label class="field">Serveur LAN Zoo (vide = Cloud Zoo)
+          <input type="text" id="rhino-zoo" placeholder="ex. 192.168.1.10" oninput="onAppToggle()">
+        </label>
+        <label><input type="checkbox" id="rhino-fr" checked onchange="onAppToggle()"> Installer le pack de langue français</label>
+      </div>
+      <label><input type="checkbox" class="app-checkbox" id="app-enscape" onchange="onAppToggle()"> Enscape (pour Rhino)</label>
+      <div class="hint hidden" id="cfg-enscape">L'installateur Enscape (<strong>Enscape-x.x.x.exe</strong>, depuis ton compte Chaos) doit être dans le dossier Téléchargements ou à côté du script. Installé après Rhino.</div>
+    </div>
+    <label class="check"><input type="checkbox" id="chk-3" onchange="updateProgress()"> Fait sur ce poste</label>
+    <button class="btn" id="apps-btn" onclick="downloadAppsScript()">⬇ Télécharger le script</button>
+  </div>
+
+  <!-- CARD 4 : NETTOYAGE -->
+  <div class="card">
+    <div class="step">Étape 4</div>
+    <h2><span class="icon">🧹</span> Nettoyage</h2>
+    <p class="desc">Supprime les langues Office en trop et remet à plat les redistribuables Visual C++ (MSVCP140.dll).</p>
+    <div class="app-list">
+      <label><input type="checkbox" id="clean-office" checked onchange="onCleanToggle()"> Langues Office en trop</label>
+      <div class="sub-config" id="cfg-office">
+        <label class="field">Langue conservée
+          <select id="office-keep" onchange="onCleanToggle()">
+            <option value="fr-fr" selected>Français (fr-fr)</option>
+            <option value="en-us">Anglais (en-us)</option>
+            <option value="de-de">Allemand (de-de)</option>
+            <option value="es-es">Espagnol (es-es)</option>
+            <option value="it-it">Italien (it-it)</option>
+            <option value="nl-nl">Néerlandais (nl-nl)</option>
+          </select>
+        </label>
+      </div>
+      <div class="hint">Sécurité : une langue n'est retirée que si la même appli existe dans la langue conservée.</div>
+      <label><input type="checkbox" id="clean-vc" checked onchange="onCleanToggle()"> Visual C++ v14 (2015 → 2026)</label>
+      <div class="hint">Désinstalle toutes les versions v14, réinstalle la dernière x64 + x86, puis vérifie MSVCP140.dll. Les redistribuables 2005–2013 sont conservés.</div>
+    </div>
+    <label class="check"><input type="checkbox" id="chk-4" onchange="updateProgress()"> Fait sur ce poste</label>
+    <button class="btn" id="clean-btn" onclick="downloadCleanScript()">⬇ Télécharger le script</button>
+  </div>
+
+</div>
+
+<div class="instructions" id="instr-cmd">
+  <h2>Comment lancer un script (.cmd)</h2>
+  <ol>
+    <li>Télécharge le script. Si le navigateur l'avertit, choisis <strong>Conserver</strong>.</li>
+    <li>Double-clique sur le fichier dans Téléchargements, puis accepte la demande d'élévation (UAC).</li>
+    <li>Si Windows affiche « Windows a protégé votre ordinateur » : <strong>Informations complémentaires → Exécuter quand même</strong>.</li>
+    <li>La fenêtre reste ouverte à la fin avec le résumé. Redémarre si demandé, puis passe au script suivant (Windows → Dell → Applications → Nettoyage).</li>
+  </ol>
+  <p class="note">Le .cmd contient le script PowerShell : il se relance lui-même en administrateur et contourne la stratégie d'exécution pour ce lancement uniquement. Rien n'est modifié durablement sur le poste.</p>
+</div>
+
+<div class="instructions hidden" id="instr-ps1">
+  <h2>Comment lancer un script (.ps1)</h2>
+  <ol>
+    <li>Télécharge le script, il arrive dans Téléchargements.</li>
+    <li>Ouvre <strong>Terminal (Admin)</strong> (clic droit sur le menu Démarrer).</li>
+    <li>Colle la commande correspondante (une seule ligne, pas besoin de <code>Set-ExecutionPolicy</code> ni de <code>cd</code>) :</li>
+  </ol>
+  <div class="cmd-line"><code id="ps1-cmd-1"></code><button class="copy-btn" onclick="copyCmd(1, this)">Copier</button></div>
+  <div class="cmd-line"><code id="ps1-cmd-2"></code><button class="copy-btn" onclick="copyCmd(2, this)">Copier</button></div>
+  <div class="cmd-line"><code id="ps1-cmd-3"></code><button class="copy-btn" onclick="copyCmd(3, this)">Copier</button></div>
+  <div class="cmd-line"><code id="ps1-cmd-4"></code><button class="copy-btn" onclick="copyCmd(4, this)">Copier</button></div>
+</div>
+
+<footer>
+  Page générée pour la préparation de postes Dell — les 4 scripts sont autonomes et rejouables (.cmd double-clic ou .ps1).
+</footer>
+
+<script>
+// ---- Contenu des scripts (base64) ----
+const SCRIPTS = {
+  1: {
+    filename: "01-windows-update.ps1",
+    b64: "I1JlcXVpcmVzIC1SdW5Bc0FkbWluaXN0cmF0b3IKPCMKLlNZTk9QU0lTCiAgICBJbnN0YWxsZSB0b3V0ZXMgbGVzIG1pc2VzIGEgam91ciBXaW5kb3dzIGRpc3BvbmlibGVzLgouREVTQ1JJUFRJT04KICAgIFV0aWxpc2UgbGUgbW9kdWxlIFBTV2luZG93c1VwZGF0ZS4gQSBleGVjdXRlciBlbiB0YW50IHF1J2FkbWluaXN0cmF0ZXVyLgojPgoKJEVycm9yQWN0aW9uUHJlZmVyZW5jZSA9ICJTdG9wIgoKV3JpdGUtSG9zdCAiPT09IFByZXBhcmF0aW9uIHBvc3RlIERlbGwgLSBNaXNlcyBhIGpvdXIgV2luZG93cyA9PT0iIC1Gb3JlZ3JvdW5kQ29sb3IgQ3lhbgoKdHJ5IHsKICAgICMgRm91cm5pc3NldXIgTnVHZXQgcmVxdWlzIHBvdXIgaW5zdGFsbGVyIGRlcyBtb2R1bGVzIFBvd2VyU2hlbGwKICAgIGlmICgtbm90IChHZXQtUGFja2FnZVByb3ZpZGVyIC1OYW1lIE51R2V0IC1FcnJvckFjdGlvbiBTaWxlbnRseUNvbnRpbnVlKSkgewogICAgICAgIFdyaXRlLUhvc3QgIkluc3RhbGxhdGlvbiBkdSBmb3Vybmlzc2V1ciBOdUdldC4uLiIgLUZvcmVncm91bmRDb2xvciBZZWxsb3cKICAgICAgICBJbnN0YWxsLVBhY2thZ2VQcm92aWRlciAtTmFtZSBOdUdldCAtTWluaW11bVZlcnNpb24gMi44LjUuMjAxIC1Gb3JjZSB8IE91dC1OdWxsCiAgICB9CgogICAgIyBNb2R1bGUgUFNXaW5kb3dzVXBkYXRlCiAgICBpZiAoLW5vdCAoR2V0LU1vZHVsZSAtTGlzdEF2YWlsYWJsZSAtTmFtZSBQU1dpbmRvd3NVcGRhdGUpKSB7CiAgICAgICAgV3JpdGUtSG9zdCAiSW5zdGFsbGF0aW9uIGR1IG1vZHVsZSBQU1dpbmRvd3NVcGRhdGUuLi4iIC1Gb3JlZ3JvdW5kQ29sb3IgWWVsbG93CiAgICAgICAgU2V0LVBTUmVwb3NpdG9yeSAtTmFtZSBQU0dhbGxlcnkgLUluc3RhbGxhdGlvblBvbGljeSBUcnVzdGVkIC1FcnJvckFjdGlvbiBTaWxlbnRseUNvbnRpbnVlCiAgICAgICAgSW5zdGFsbC1Nb2R1bGUgLU5hbWUgUFNXaW5kb3dzVXBkYXRlIC1Gb3JjZSAtQ29uZmlybTokZmFsc2UgLVNjb3BlIEFsbFVzZXJzCiAgICB9CgogICAgSW1wb3J0LU1vZHVsZSBQU1dpbmRvd3NVcGRhdGUgLUVycm9yQWN0aW9uIFN0b3AKCiAgICBXcml0ZS1Ib3N0ICJSZWNoZXJjaGUgZXQgaW5zdGFsbGF0aW9uIGRlcyBtaXNlcyBhIGpvdXIgV2luZG93cyBlbiBjb3Vycy4uLiIgLUZvcmVncm91bmRDb2xvciBZZWxsb3cKICAgIFdyaXRlLUhvc3QgIihjZWxhIHBldXQgcHJlbmRyZSBwbHVzaWV1cnMgbWludXRlcyBzZWxvbiBsZSBub21icmUgZGUgbWlzZXMgYSBqb3VyKSIgLUZvcmVncm91bmRDb2xvciBEYXJrR3JheQoKICAgIEdldC1XaW5kb3dzVXBkYXRlIC1NaWNyb3NvZnRVcGRhdGUgLUFjY2VwdEFsbCAtSW5zdGFsbCAtSWdub3JlUmVib290IC1WZXJib3NlCgogICAgV3JpdGUtSG9zdCAiIgogICAgV3JpdGUtSG9zdCAiPT09IE1pc2VzIGEgam91ciBXaW5kb3dzIHRlcm1pbmVlcyA9PT0iIC1Gb3JlZ3JvdW5kQ29sb3IgR3JlZW4KICAgIFdyaXRlLUhvc3QgIlVuIHJlZGVtYXJyYWdlIHNlcmEgcGV1dC1ldHJlIG5lY2Vzc2FpcmUgcG91ciBmaW5hbGlzZXIgY2VydGFpbmVzIG1pc2VzIGEgam91ci4iIC1Gb3JlZ3JvdW5kQ29sb3IgWWVsbG93Cn0KY2F0Y2ggewogICAgV3JpdGUtSG9zdCAiRVJSRVVSIDogJCgkXy5FeGNlcHRpb24uTWVzc2FnZSkiIC1Gb3JlZ3JvdW5kQ29sb3IgUmVkCiAgICBleGl0IDEKfQo="
+  },
+  2: {
+    filename: "02-dell-update.ps1",
+    b64: "I1JlcXVpcmVzIC1SdW5Bc0FkbWluaXN0cmF0b3IKPCMKLlNZTk9QU0lTCiAgICBJbnN0YWxsZSAoc2kgYmVzb2luKSBEZWxsIENvbW1hbmQgfCBVcGRhdGUgcHVpcyBhcHBsaXF1ZSB0b3V0ZXMgbGVzIG1pc2VzIGEgam91ciBEZWxsLgouREVTQ1JJUFRJT04KICAgIE5lY2Vzc2l0ZSB3aW5nZXQgKEFwcCBJbnN0YWxsZXIpIHNpIERlbGwgQ29tbWFuZCB8IFVwZGF0ZSBuJ2VzdCBwYXMgZGVqYSBwcmVzZW50LgogICAgQSBleGVjdXRlciBlbiB0YW50IHF1J2FkbWluaXN0cmF0ZXVyLgojPgoKJEVycm9yQWN0aW9uUHJlZmVyZW5jZSA9ICJTdG9wIgoKV3JpdGUtSG9zdCAiPT09IFByZXBhcmF0aW9uIHBvc3RlIERlbGwgLSBNaXNlcyBhIGpvdXIgRGVsbCAoRGVsbCBDb21tYW5kIHwgVXBkYXRlKSA9PT0iIC1Gb3JlZ3JvdW5kQ29sb3IgQ3lhbgoKJGRjdVBhdGhzID0gQCgKICAgICJDOlxQcm9ncmFtIEZpbGVzXERlbGxcQ29tbWFuZFVwZGF0ZVxkY3UtY2xpLmV4ZSIsCiAgICAiQzpcUHJvZ3JhbSBGaWxlcyAoeDg2KVxEZWxsXENvbW1hbmRVcGRhdGVcZGN1LWNsaS5leGUiCikKCmZ1bmN0aW9uIEZpbmQtRENVIHsKICAgIHJldHVybiAkZGN1UGF0aHMgfCBXaGVyZS1PYmplY3QgeyBUZXN0LVBhdGggJF8gfSB8IFNlbGVjdC1PYmplY3QgLUZpcnN0IDEKfQoKJGRjdSA9IEZpbmQtRENVCgppZiAoLW5vdCAkZGN1KSB7CiAgICBXcml0ZS1Ib3N0ICJEZWxsIENvbW1hbmQgfCBVcGRhdGUgbm9uIGRldGVjdGUuIiAtRm9yZWdyb3VuZENvbG9yIFllbGxvdwoKICAgIGlmICgtbm90IChHZXQtQ29tbWFuZCB3aW5nZXQgLUVycm9yQWN0aW9uIFNpbGVudGx5Q29udGludWUpKSB7CiAgICAgICAgV3JpdGUtSG9zdCAiRVJSRVVSIDogd2luZ2V0IG4nZXN0IHBhcyBkaXNwb25pYmxlIHN1ciBjZSBwb3N0ZS4iIC1Gb3JlZ3JvdW5kQ29sb3IgUmVkCiAgICAgICAgV3JpdGUtSG9zdCAiSW5zdGFsbGUgJ0FwcCBJbnN0YWxsZXInIGRlcHVpcyBsZSBNaWNyb3NvZnQgU3RvcmUsIG91IGluc3RhbGxlIERlbGwgQ29tbWFuZCB8IFVwZGF0ZSBtYW51ZWxsZW1lbnQgZGVwdWlzIGRlbGwuY29tL3N1cHBvcnQsIHB1aXMgcmVsYW5jZSBjZSBzY3JpcHQuIiAtRm9yZWdyb3VuZENvbG9yIFJlZAogICAgICAgIGV4aXQgMQogICAgfQoKICAgIFdyaXRlLUhvc3QgIkluc3RhbGxhdGlvbiBkZSBEZWxsIENvbW1hbmQgfCBVcGRhdGUgdmlhIHdpbmdldC4uLiIgLUZvcmVncm91bmRDb2xvciBZZWxsb3cKICAgIHdpbmdldCBpbnN0YWxsIC0taWQgRGVsbC5Db21tYW5kVXBkYXRlIC1lIC0tc2lsZW50IC0tYWNjZXB0LXBhY2thZ2UtYWdyZWVtZW50cyAtLWFjY2VwdC1zb3VyY2UtYWdyZWVtZW50cwoKICAgICRkY3UgPSBGaW5kLURDVQp9CgppZiAoLW5vdCAkZGN1KSB7CiAgICBXcml0ZS1Ib3N0ICJJbXBvc3NpYmxlIGRlIHRyb3V2ZXIgZGN1LWNsaS5leGUgYXByZXMgaW5zdGFsbGF0aW9uLiIgLUZvcmVncm91bmRDb2xvciBSZWQKICAgIFdyaXRlLUhvc3QgIkluc3RhbGxlIERlbGwgQ29tbWFuZCB8IFVwZGF0ZSBtYW51ZWxsZW1lbnQgZGVwdWlzIGRlbGwuY29tL3N1cHBvcnQgcHVpcyByZWxhbmNlIGNlIHNjcmlwdC4iIC1Gb3JlZ3JvdW5kQ29sb3IgUmVkCiAgICBleGl0IDEKfQoKV3JpdGUtSG9zdCAiRGVsbCBDb21tYW5kIHwgVXBkYXRlIHRyb3V2ZSA6ICRkY3UiIC1Gb3JlZ3JvdW5kQ29sb3IgR3JlZW4KCldyaXRlLUhvc3QgIkFuYWx5c2UgZGVzIG1pc2VzIGEgam91ciBEZWxsIGRpc3BvbmlibGVzLi4uIiAtRm9yZWdyb3VuZENvbG9yIFllbGxvdwomICRkY3UgL3NjYW4KCldyaXRlLUhvc3QgIkFwcGxpY2F0aW9uIGRlcyBtaXNlcyBhIGpvdXIgRGVsbCAoQklPUywgcGlsb3RlcywgZmlybXdhcmUpLi4uIiAtRm9yZWdyb3VuZENvbG9yIFllbGxvdwomICRkY3UgL2FwcGx5VXBkYXRlcyAtcmVib290PWRpc2FibGUKCldyaXRlLUhvc3QgIiIKV3JpdGUtSG9zdCAiPT09IE1pc2VzIGEgam91ciBEZWxsIHRlcm1pbmVlcyA9PT0iIC1Gb3JlZ3JvdW5kQ29sb3IgR3JlZW4KV3JpdGUtSG9zdCAiVW4gcmVkZW1hcnJhZ2Ugc2VyYSBwZXV0LWV0cmUgbmVjZXNzYWlyZSAobm90YW1tZW50IGFwcmVzIHVuZSBtaXNlIGEgam91ciBCSU9TKS4iIC1Gb3JlZ3JvdW5kQ29sb3IgWWVsbG93Cg=="
+  }
+};
+
+// ---- Mode de lancement : "cmd" (double-clic) ou "ps1" ----
+let MODE = "cmd";
+const FILE_BASES = { 1: "01-windows-update", 2: "02-dell-update", 3: "03-install-apps", 4: "04-nettoyage" };
+
+function setMode(m){
+  MODE = m;
+  try { localStorage.setItem("dell-prep-mode", m); } catch(e) {}
+  document.getElementById("mode-cmd").classList.toggle("active", m === "cmd");
+  document.getElementById("mode-ps1").classList.toggle("active", m === "ps1");
+  document.getElementById("instr-cmd").classList.toggle("hidden", m !== "cmd");
+  document.getElementById("instr-ps1").classList.toggle("hidden", m !== "ps1");
+  document.getElementById("btn-1").textContent = "⬇ Télécharger " + FILE_BASES[1] + "." + m;
+  document.getElementById("btn-2").textContent = "⬇ Télécharger " + FILE_BASES[2] + "." + m;
+  for (let i = 1; i <= 4; i++){
+    document.getElementById("ps1-cmd-" + i).textContent = ps1Command(i);
+  }
+  onAppToggle();
+  onCleanToggle();
+}
+
+function ps1Command(i){
+  return 'powershell -ExecutionPolicy Bypass -File "$env:USERPROFILE\\Downloads\\' + FILE_BASES[i] + '.ps1"';
+}
+
+function copyCmd(i, btn){
+  const txt = ps1Command(i);
+  const done = () => { btn.textContent = "Copié ✓"; setTimeout(() => btn.textContent = "Copier", 1500); };
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done).catch(() => fallbackCopy(txt, done));
+  } else {
+    fallbackCopy(txt, done);
+  }
+}
+function fallbackCopy(txt, done){
+  const ta = document.createElement("textarea");
+  ta.value = txt; document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); done(); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+// Emballe un script PowerShell dans un .cmd auto-elevant (double-clic).
+// La partie batch se relance en admin, extrait le PowerShell situe apres
+// le marqueur #__PS1__ vers un fichier temporaire et l'execute en Bypass.
+function wrapAsCmd(ps){
+  const header = [
+    "@echo off",
+    "setlocal",
+    'set "SELF=%~f0"',
+    "net session >nul 2>&1",
+    "if errorlevel 1 (",
+    "  echo Demande des droits administrateur...",
+    '  powershell -NoProfile -Command "Start-Process -FilePath $env:SELF -Verb RunAs"',
+    "  exit /b",
+    ")",
+    'powershell -NoProfile -ExecutionPolicy Bypass -Command "$l = Get-Content -LiteralPath $env:SELF; $i = [Array]::IndexOf($l, \'#__PS1__\'); $t = Join-Path $env:TEMP (\'dellprep_\' + [guid]::NewGuid().ToString(\'N\') + \'.ps1\'); Set-Content -LiteralPath $t -Value $l[($i + 1)..($l.Count - 1)] -Encoding UTF8; & $t; $c = $LASTEXITCODE; Remove-Item -LiteralPath $t -Force -ErrorAction SilentlyContinue; exit $c"',
+    "echo.",
+    "pause",
+    "exit /b",
+    "#__PS1__"
+  ].join("\r\n");
+  return header + "\r\n" + ps.replace(/\r?\n/g, "\r\n");
+}
+
+function saveFile(content, filename){
+  const blob = new Blob([content], {type: "application/octet-stream"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function deliver(id, ps){
+  if (MODE === "cmd"){
+    saveFile(wrapAsCmd(ps), FILE_BASES[id] + ".cmd");
+  } else {
+    saveFile(ps.replace(/\r?\n/g, "\r\n"), FILE_BASES[id] + ".ps1");
+  }
+}
+
+// Fonctions PowerShell communes aux etapes 3 et 4 :
+// attente du verrou Windows Installer (erreurs 1618 / Adobe 87) et detection d'un redemarrage en attente.
+const PS_INSTALLER_HELPERS = `
+function Test-InstallerBusy {
+    $m = $null
+    try {
+        if ([System.Threading.Mutex]::TryOpenExisting("Global\\_MSIExecute", [ref]$m)) { $m.Dispose(); return $true }
+        return $false
+    }
+    catch { return $true }
+}
+
+function Wait-InstallerFree([int]$MaxMinutes = 15) {
+    if (-not (Test-InstallerBusy)) { return $true }
+    Write-Host "Windows Installer est occupe par une autre installation, attente (max $MaxMinutes min)..." -ForegroundColor DarkYellow
+    Get-CimInstance Win32_Process -Filter "Name='msiexec.exe'" -ErrorAction SilentlyContinue |
+        Where-Object { $_.CommandLine -and $_.CommandLine -notmatch '/V\\s*$' } |
+        ForEach-Object { Write-Host "  en cours : $($_.CommandLine)" -ForegroundColor DarkGray }
+    $limit = (Get-Date).AddMinutes($MaxMinutes)
+    while ((Test-InstallerBusy) -and ((Get-Date) -lt $limit)) { Start-Sleep -Seconds 10 }
+    $free = -not (Test-InstallerBusy)
+    if ($free) { Write-Host "Windows Installer libre, on continue." -ForegroundColor DarkGray }
+    else { Write-Host "Windows Installer toujours occupe apres $MaxMinutes min." -ForegroundColor Red }
+    return $free
+}
+
+function Test-PendingReboot {
+    return (Test-Path "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Component Based Servicing\\RebootPending") -or
+           (Test-Path "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WindowsUpdate\\Auto Update\\RebootRequired")
+}
+
+function Confirm-NoPendingReboot {
+    if (Test-PendingReboot) {
+        Write-Host ""
+        Write-Host "ATTENTION : un redemarrage est en attente (mises a jour Windows ou Dell)." -ForegroundColor Yellow
+        Write-Host "Sans redemarrage, les installations MSI echouent souvent (code 1618, Adobe code 87)." -ForegroundColor Yellow
+        $r = Read-Host "Redemarrer maintenant ? Relance ensuite ce script. (O = redemarrer / N = continuer quand meme)"
+        if ($r -match '^[oOyY]') { Restart-Computer -Force; exit 0 }
+    }
+}
+`;
+
+// ---- Catalogue des applications (ordre = ordre d'installation) ----
+// type "winget" : installation generique ; les autres ont un bloc dedie.
+const APPS_CATALOG = [
+  { key: "chrome",  name: "Google Chrome",        type: "winget", wingetId: "Google.Chrome" },
+  { key: "firefox", name: "Mozilla Firefox",      type: "winget", wingetId: "Mozilla.Firefox" },
+  { key: "vlc",     name: "VLC",                  type: "winget", wingetId: "VideoLAN.VLC" },
+  { key: "7zip",    name: "7-Zip",                type: "winget", wingetId: "7zip.7zip" },
+  { key: "adobe",   name: "Adobe Creative Cloud", type: "winget", wingetId: "Adobe.CreativeCloud" },
+  { key: "teams",   name: "Microsoft Teams",      type: "teams" },
+  { key: "rhino",   name: "Rhino 8",              type: "rhino" },
+  { key: "enscape", name: "Enscape",              type: "enscape" }
+];
+
+function getSelectedApps(){
+  return APPS_CATALOG.filter(a => document.getElementById("app-" + a.key).checked);
+}
+
+function toggleAllApps(state){
+  APPS_CATALOG.forEach(a => document.getElementById("app-" + a.key).checked = state);
+  onAppToggle();
+}
+
+function rhinoEmailValid(){
+  const v = document.getElementById("rhino-email").value.trim();
+  return /^[^\s@"'`$]+@[^\s@"'`$]+\.[^\s@"'`$]+$/.test(v);
+}
+
+function onAppToggle(){
+  const selected = getSelectedApps();
+  try {
+    APPS_CATALOG.forEach(a => {
+      localStorage.setItem("dell-prep-app-" + a.key, document.getElementById("app-" + a.key).checked);
+    });
+    localStorage.setItem("dell-prep-rhino-email", document.getElementById("rhino-email").value);
+    localStorage.setItem("dell-prep-rhino-zoo", document.getElementById("rhino-zoo").value);
+    localStorage.setItem("dell-prep-rhino-fr", document.getElementById("rhino-fr").checked);
+  } catch(e) {}
+
+  const rhinoOn = document.getElementById("app-rhino").checked;
+  document.getElementById("cfg-rhino").classList.toggle("hidden", !rhinoOn);
+  document.getElementById("cfg-enscape").classList.toggle("hidden", !document.getElementById("app-enscape").checked);
+  const emailField = document.getElementById("rhino-email");
+  emailField.classList.toggle("invalid", rhinoOn && emailField.value.trim() !== "" && !rhinoEmailValid());
+
+  const btn = document.getElementById("apps-btn");
+  btn.textContent = selected.length > 0
+    ? "⬇ Télécharger " + FILE_BASES[3] + "." + MODE + " (" + selected.length + " appli" + (selected.length > 1 ? "s" : "") + ")"
+    : "⬇ Sélectionne au moins une application";
+}
+
+// Nettoie une valeur injectee dans une chaine PowerShell entre guillemets doubles.
+function psSafe(v){
+  return String(v).replace(/["`$\r\n]/g, "").trim();
+}
+
+function generateAppsScript(apps){
+  const lines = [];
+  apps.forEach(a => {
+    if (a.type === "winget") lines.push(`Install-WingetApp -Name "${a.name}" -Id "${a.wingetId}"`);
+    if (a.type === "teams")  lines.push(`Install-Teams`);
+    if (a.type === "rhino")  lines.push(`Install-Rhino8`);
+    if (a.type === "enscape") lines.push(`Install-Enscape`);
+  });
+
+  const needs = t => apps.some(a => a.type === t);
+  const email = psSafe(document.getElementById("rhino-email").value);
+  const zoo   = psSafe(document.getElementById("rhino-zoo").value);
+  const fr    = document.getElementById("rhino-fr").checked;
+
+  let rhinoArgs = "@('-package', '-quiet', '-norestart'";
+  if (fr)  rhinoArgs += ", 'INSTALL_FR=1'";
+  if (zoo) rhinoArgs += ", 'LICENSE_METHOD=ZOO', 'ZOO_SERVER=" + zoo.replace(/'/g, "") + "'";
+  rhinoArgs += ")";
+
+  const fnTeams = needs("teams") ? `
+function Install-Teams {
+    $name = "Microsoft Teams"
+    Write-Host ""
+    Write-Host "Installation de $name (provisionnement tous utilisateurs)..." -ForegroundColor Yellow
+    $exe = Join-Path $env:TEMP "teamsbootstrapper.exe"
+    try {
+        Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/?linkid=2243204&clcid=0x409" -OutFile $exe -UseBasicParsing
+        [void](Wait-InstallerFree)
+        $p = Start-Process -FilePath $exe -ArgumentList "-p" -Wait -PassThru -NoNewWindow
+        if ($p.ExitCode -eq 0) { Add-Result $name $true "" }
+        else { throw "teamsbootstrapper code $($p.ExitCode)" }
+    }
+    catch {
+        Write-Host "Bootstrapper en echec ($($_.Exception.Message)), tentative via winget..." -ForegroundColor DarkYellow
+        Install-WingetApp -Name $name -Id "Microsoft.Teams"
+    }
+    finally { Remove-Item -LiteralPath $exe -Force -ErrorAction SilentlyContinue }
+}
+` : "";
+
+  const fnRhino = needs("rhino") ? `
+function Install-Rhino8 {
+    $name = "Rhino 8"
+    Write-Host ""
+    Write-Host "Installation de $name..." -ForegroundColor Yellow
+    if (Test-Path "HKLM:\\SOFTWARE\\McNeel\\Rhinoceros\\8.0\\Install") {
+        Write-Host "Rhino 8 deja installe, etape ignoree." -ForegroundColor DarkGray
+        Add-Result $name $true "deja installe"
+        return
+    }
+    $url = "https://www.rhino3d.com/www-api/download/direct/?slug=rhino-for-windows/8/latest/?email=${email}"
+    $exe = Join-Path $env:TEMP "rhino8_setup.exe"
+    try {
+        Write-Host "Telechargement de l'installateur (plusieurs centaines de Mo)..." -ForegroundColor DarkGray
+        Invoke-WebRequest -Uri $url -OutFile $exe -UseBasicParsing
+        Write-Host "Installation silencieuse en cours..." -ForegroundColor DarkGray
+        $argList = ${rhinoArgs}
+        [void](Wait-InstallerFree)
+        $p = Start-Process -FilePath $exe -ArgumentList $argList -Wait -PassThru
+        $ok = ($p.ExitCode -eq 0 -or $p.ExitCode -eq 3010)
+        if ($p.ExitCode -eq 3010) { $script:rebootNeeded = $true }
+        Add-Result $name $ok "code $($p.ExitCode)"
+    }
+    catch { Add-Result $name $false $_.Exception.Message }
+    finally { Remove-Item -LiteralPath $exe -Force -ErrorAction SilentlyContinue }
+}
+` : "";
+
+  const fnEnscape = needs("enscape") ? `
+function Install-Enscape {
+    $name = "Enscape"
+    Write-Host ""
+    Write-Host "Installation de $name..." -ForegroundColor Yellow
+    if (Test-Path "C:\\Program Files\\Enscape") {
+        Write-Host "Enscape semble deja installe, etape ignoree." -ForegroundColor DarkGray
+        Add-Result $name $true "deja installe"
+        return
+    }
+    if (-not (Test-Path "HKLM:\\SOFTWARE\\McNeel\\Rhinoceros\\8.0\\Install")) {
+        Write-Host "Attention : Rhino 8 n'est pas detecte, le plugin Rhino risque de ne pas s'installer." -ForegroundColor DarkYellow
+    }
+
+    # Recherche de l'installateur : dossier du script, puis Telechargements de tous les profils
+    $dirs = @()
+    if ($env:SELF) { $dirs += (Split-Path -Parent $env:SELF) }
+    if ($PSScriptRoot) { $dirs += $PSScriptRoot }
+    $dirs += (Get-ChildItem "C:\\Users\\*\\Downloads" -Directory -ErrorAction SilentlyContinue | ForEach-Object { $_.FullName })
+    $installer = $dirs | Select-Object -Unique |
+        ForEach-Object { Get-ChildItem -Path $_ -Filter "Enscape*.exe" -File -ErrorAction SilentlyContinue } |
+        Sort-Object LastWriteTime -Descending | Select-Object -First 1
+
+    if (-not $installer) {
+        Write-Host "Installateur Enscape introuvable (Enscape*.exe)." -ForegroundColor Red
+        Write-Host "Telecharge-le depuis ton compte Chaos, place-le dans Telechargements et relance ce script." -ForegroundColor Red
+        Add-Result $name $false "installateur introuvable"
+        return
+    }
+    Write-Host "Installateur trouve : $($installer.FullName)" -ForegroundColor DarkGray
+
+    $cfg = Join-Path $env:TEMP "enscape_config.xml"
+    $xml = @(
+        '<DefValues>',
+        '<Value Name="LOCALE" DataType="value">en-US</Value>',
+        '<Value Name="STDROOT" DataType="value">C:\\Program Files\\Enscape</Value>',
+        '<Value Name="INSTALL_ARCHICAD" DataType="value">0</Value>',
+        '<Value Name="INSTALL_RHINO" DataType="value">1</Value>',
+        '<Value Name="INSTALL_SKETCHUP" DataType="value">0</Value>',
+        '<Value Name="INSTALL_VECTORWORKS" DataType="value">0</Value>',
+        '<Value Name="REMOTE_LICENSE" DataType="value">0</Value>',
+        '</DefValues>'
+    )
+    Set-Content -LiteralPath $cfg -Value $xml -Encoding UTF8
+
+    try {
+        $argLine = '-gui=0 -acceptEULA -quiet=1 -configFile="' + $cfg + '"'
+        [void](Wait-InstallerFree)
+        $p = Start-Process -FilePath $installer.FullName -ArgumentList $argLine -Wait -PassThru
+        $ok = ($p.ExitCode -eq 0 -or $p.ExitCode -eq 3010)
+        Add-Result $name $ok "code $($p.ExitCode)"
+    }
+    catch { Add-Result $name $false $_.Exception.Message }
+    finally { Remove-Item -LiteralPath $cfg -Force -ErrorAction SilentlyContinue }
+}
+` : "";
+
+  return `#Requires -RunAsAdministrator
+<#
+.SYNOPSIS
+    Installe les applications selectionnees sur un poste Dell fraichement prepare.
+.DESCRIPTION
+    Applications : ${apps.map(a => a.name).join(", ")}.
+    A executer en tant qu'administrateur. Script rejouable : les applis deja presentes sont ignorees.
+#>
+
+$ErrorActionPreference = "Continue"
+$ProgressPreference = "SilentlyContinue"
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+Write-Host "=== Preparation poste Dell - Installation des applications ===" -ForegroundColor Cyan
+
+$script:results = @()
+$script:rebootNeeded = $false
+$hasWinget = [bool](Get-Command winget -ErrorAction SilentlyContinue)
+${PS_INSTALLER_HELPERS}
+Confirm-NoPendingReboot
+
+function Add-Result($name, $ok, $detail) {
+    $statut = if ($ok) { if ($detail) { "OK ($detail)" } else { "OK" } } else { "A verifier : $detail" }
+    $script:results += [PSCustomObject]@{ Application = $name; Statut = $statut }
+}
+
+function Install-WingetApp([string]$Name, [string]$Id) {
+    Write-Host ""
+    Write-Host "Installation de $Name..." -ForegroundColor Yellow
+    if (-not $hasWinget) {
+        Write-Host "winget absent : installe 'App Installer' depuis le Microsoft Store." -ForegroundColor Red
+        Add-Result $Name $false "winget absent"
+        return
+    }
+    # 0 = OK, 3010 = redemarrage requis, 0x8A15002B / 0x8A150061 = deja installe / a jour
+    $okCodes = @(0, 3010, -1978335189, -1978335135)
+    $useLocale = $true
+    $code = $null
+    for ($try = 1; $try -le 3; $try++) {
+        [void](Wait-InstallerFree)
+        $wargs = @("install", "--id", $Id, "-e", "--source", "winget", "--silent",
+                   "--accept-package-agreements", "--accept-source-agreements", "--disable-interactivity")
+        if ($useLocale) { $wargs += @("--locale", "fr-FR") }
+        & winget @wargs
+        $code = $LASTEXITCODE
+        # 0x8A150010 = pas d'installateur en francais : on reprend avec la version par defaut
+        if ($useLocale -and $code -eq -1978335216) {
+            Write-Host "Pas de version francaise pour $Name, installation de la version par defaut." -ForegroundColor DarkGray
+            $useLocale = $false
+            $try--
+            continue
+        }
+        if ($okCodes -contains $code) { break }
+        if ($try -lt 3) {
+            Write-Host "Echec (code $code), nouvelle tentative $($try + 1)/3 dans 30 s..." -ForegroundColor DarkYellow
+            Start-Sleep -Seconds 30
+        }
+    }
+    if ($code -eq 3010) { $script:rebootNeeded = $true }
+    if ($code -eq -1978335189 -or $code -eq -1978335135) { Add-Result $Name $true "deja installe" }
+    else { Add-Result $Name ($code -eq 0 -or $code -eq 3010) "code $code" }
+}
+${fnTeams}${fnRhino}${fnEnscape}
+# ---- Installation (dans l'ordre) ----
+${lines.join("\n")}
+
+Write-Host ""
+Write-Host "=== Resume de l'installation ===" -ForegroundColor Cyan
+$script:results | Format-Table -AutoSize
+
+if ($script:rebootNeeded) {
+    Write-Host "Un redemarrage est necessaire pour finaliser certaines installations." -ForegroundColor Yellow
+}
+Write-Host "=== Termine ===" -ForegroundColor Green
+`;
+}
+
+function downloadAppsScript(){
+  const selected = getSelectedApps();
+  if (selected.length === 0){
+    alert("Sélectionne au moins une application avant de télécharger.");
+    return;
+  }
+  if (selected.some(a => a.key === "rhino") && !rhinoEmailValid()){
+    alert("Renseigne une adresse e-mail valide pour le téléchargement de Rhino 8 (exigée par McNeel).");
+    document.getElementById("rhino-email").focus();
+    return;
+  }
+  deliver(3, generateAppsScript(selected));
+}
+
+// ---- Etape 4 : nettoyage langues Office + Visual C++ v14 ----
+function onCleanToggle(){
+  const office = document.getElementById("clean-office").checked;
+  const vc = document.getElementById("clean-vc").checked;
+  document.getElementById("cfg-office").classList.toggle("hidden", !office);
+  try {
+    localStorage.setItem("dell-prep-clean-office", office);
+    localStorage.setItem("dell-prep-clean-vc", vc);
+    localStorage.setItem("dell-prep-office-keep", document.getElementById("office-keep").value);
+  } catch(e) {}
+  const btn = document.getElementById("clean-btn");
+  btn.textContent = (office || vc)
+    ? "⬇ Télécharger " + FILE_BASES[4] + "." + MODE
+    : "⬇ Coche au moins une action";
+}
+
+function generateCleanScript(office, vc, keep){
+  const fnOffice = office ? `
+function Remove-OfficeLanguages([string]$Keep) {
+    Write-Host ""
+    Write-Host "--- Langues Office : on conserve $Keep ---" -ForegroundColor Cyan
+    $entries = Get-ItemProperty $uninstallPaths -ErrorAction SilentlyContinue | Where-Object {
+        $_.UninstallString -match 'OfficeClickToRun\\.exe' -and $_.UninstallString -match 'productstoremove='
+    } | ForEach-Object {
+        if ($_.UninstallString -match 'productstoremove=([A-Za-z0-9]+)\\.16_(.+?)_x-none') {
+            [PSCustomObject]@{
+                Name    = $_.DisplayName
+                Product = $Matches[1]
+                Lang    = $Matches[2].ToLower()
+                Cmd     = $_.UninstallString
+                Key     = $_.PSPath
+            }
+        }
+    }
+
+    if (-not $entries) {
+        Write-Host "Aucune installation Office Click-to-Run detectee." -ForegroundColor DarkGray
+        Add-Result "Langues Office" $true "rien a faire"
+        return
+    }
+
+    $removed = 0
+    foreach ($group in ($entries | Group-Object Product)) {
+        $langs = ($group.Group | ForEach-Object { $_.Lang }) -join ", "
+        Write-Host "$($group.Name) : $langs" -ForegroundColor DarkGray
+        if (-not ($group.Group | Where-Object { $_.Lang -eq $Keep })) {
+            Write-Host "  -> $Keep absent pour ce produit : on ne touche a rien (sinon l'appli disparaitrait)." -ForegroundColor DarkYellow
+            Add-Result "$($group.Name)" $false "$Keep absent, non modifie"
+            continue
+        }
+        foreach ($e in ($group.Group | Where-Object { $_.Lang -ne $Keep })) {
+            Write-Host "  Suppression de $($e.Name)..." -ForegroundColor Yellow
+            if ($e.Cmd -notmatch '^\\s*"([^"]+)"\\s*(.*)$') {
+                Add-Result $e.Name $false "commande de desinstallation illisible"
+                continue
+            }
+            $exe = $Matches[1]
+            $argLine = $Matches[2] + " DisplayLevel=False forceappshutdown=True"
+            try {
+                Start-Process -FilePath $exe -ArgumentList $argLine -Wait | Out-Null
+                # Click-to-Run peut finir en arriere-plan : on attend la disparition de l'entree (10 min max)
+                $limit = (Get-Date).AddMinutes(10)
+                while ((Test-Path $e.Key) -and ((Get-Date) -lt $limit)) { Start-Sleep -Seconds 5 }
+                if (Test-Path $e.Key) { Add-Result $e.Name $false "toujours present apres 10 min" }
+                else { Add-Result $e.Name $true "supprime"; $removed++ }
+            }
+            catch { Add-Result $e.Name $false $_.Exception.Message }
+        }
+    }
+    if ($removed -eq 0) { Write-Host "Aucune langue en trop." -ForegroundColor DarkGray }
+}
+` : "";
+
+  const fnVc = vc ? `
+function Get-MsvcpVersion([string]$path) {
+    if (Test-Path $path) {
+        $v = (Get-Item $path).VersionInfo
+        return [Version]("{0}.{1}.{2}.{3}" -f $v.FileMajorPart, $v.FileMinorPart, $v.FileBuildPart, $v.FilePrivatePart)
+    }
+    return $null
+}
+
+function Reset-VCRedist {
+    Write-Host ""
+    Write-Host "--- Visual C++ v14 : desinstallation complete puis reinstallation ---" -ForegroundColor Cyan
+    Write-Host "Ferme si possible les applications ouvertes (Teams, Adobe, Rhino...) pour liberer MSVCP140.dll." -ForegroundColor DarkGray
+    $v14 = '^Microsoft Visual C\\+\\+ (2015|2017|2019|2022|2026|v14)\\b'
+
+    # 1) Bundles (entrees visibles dans Programmes et fonctionnalites)
+    $bundles = Get-ItemProperty $uninstallPaths -ErrorAction SilentlyContinue | Where-Object {
+        $_.DisplayName -match $v14 -and $_.DisplayName -match 'Redistributable' -and $_.UninstallString
+    }
+    foreach ($b in $bundles) {
+        Write-Host "Desinstallation : $($b.DisplayName)" -ForegroundColor Yellow
+        if ($b.UninstallString -match '^\\s*"([^"]+)"') { $exe = $Matches[1] } else { $exe = ($b.UninstallString -split ' /')[0].Trim() }
+        if (Test-Path $exe) {
+            [void](Wait-InstallerFree)
+            $p = Start-Process -FilePath $exe -ArgumentList "/uninstall /quiet /norestart" -Wait -PassThru
+            if ($p.ExitCode -eq 3010) { $script:rebootNeeded = $true }
+            Write-Host "  code $($p.ExitCode)" -ForegroundColor DarkGray
+        } else {
+            Write-Host "  Installateur en cache absent, nettoyage MSI a l'etape suivante." -ForegroundColor DarkYellow
+        }
+    }
+
+    # 2) Composants MSI restants (Minimum / Additional Runtime, entrees souvent masquees)
+    $msis = Get-ItemProperty $uninstallPaths -ErrorAction SilentlyContinue | Where-Object {
+        $_.DisplayName -match $v14 -and $_.DisplayName -match '(Minimum|Additional) Runtime' -and $_.PSChildName -match '^\\{.+\\}$'
+    }
+    foreach ($m in $msis) {
+        Write-Host "Desinstallation MSI : $($m.DisplayName)" -ForegroundColor Yellow
+        [void](Wait-InstallerFree)
+        $p = Start-Process -FilePath "msiexec.exe" -ArgumentList "/x $($m.PSChildName) /qn /norestart" -Wait -PassThru
+        if ($p.ExitCode -eq 3010) { $script:rebootNeeded = $true }
+        Write-Host "  code $($p.ExitCode)" -ForegroundColor DarkGray
+    }
+    Add-Result "VC++ v14 (desinstallation)" $true "$(@($bundles).Count) paquet(s), $(@($msis).Count) composant(s) MSI"
+
+    # 3) Reinstallation de la derniere version (lien permanent Microsoft)
+    foreach ($arch in @("x64", "x86")) {
+        $name = "VC++ v14 $arch (derniere version)"
+        $exe = Join-Path $env:TEMP "vc_redist.$arch.exe"
+        try {
+            Write-Host "Telechargement de vc_redist.$arch.exe..." -ForegroundColor Yellow
+            Invoke-WebRequest -Uri "https://aka.ms/vc14/vc_redist.$arch.exe" -OutFile $exe -UseBasicParsing
+            [void](Wait-InstallerFree)
+            $p = Start-Process -FilePath $exe -ArgumentList "/install /quiet /norestart" -Wait -PassThru
+            $code = $p.ExitCode
+            if ($code -eq 1638) {
+                # Une version egale ou plus recente est encore la : on force la reecriture des fichiers
+                Write-Host "  Version deja presente, reparation pour forcer la reecriture des DLL..." -ForegroundColor DarkYellow
+                $p = Start-Process -FilePath $exe -ArgumentList "/repair /quiet /norestart" -Wait -PassThru
+                $code = $p.ExitCode
+            }
+            if ($code -eq 3010) { $script:rebootNeeded = $true }
+            Add-Result $name ($code -eq 0 -or $code -eq 3010) "code $code"
+        }
+        catch { Add-Result $name $false $_.Exception.Message }
+        finally { Remove-Item -LiteralPath $exe -Force -ErrorAction SilentlyContinue }
+    }
+
+    # 4) Verification de MSVCP140.dll
+    Write-Host ""
+    Write-Host "--- Verification MSVCP140.dll ---" -ForegroundColor Cyan
+    $sys64 = Get-MsvcpVersion "$env:WINDIR\\System32\\msvcp140.dll"
+    $sys32 = Get-MsvcpVersion "$env:WINDIR\\SysWOW64\\msvcp140.dll"
+    Write-Host "System32 (64 bits) : $sys64"
+    Write-Host "SysWOW64 (32 bits) : $sys32"
+
+    Write-Host "Recherche de copies locales plus anciennes dans Program Files (peut prendre une minute)..." -ForegroundColor DarkGray
+    $ref = if ($sys64) { $sys64 } else { $sys32 }
+    $old = @()
+    if ($ref) {
+        $old = Get-ChildItem -Path "$env:ProgramFiles", "\${env:ProgramFiles(x86)}" -Filter "msvcp140.dll" -Recurse -File -Force -ErrorAction SilentlyContinue |
+            ForEach-Object {
+                $v = Get-MsvcpVersion $_.FullName
+                if ($v -and $v -lt $ref) { [PSCustomObject]@{ Version = $v; Fichier = $_.FullName } }
+            }
+    }
+    if ($old) {
+        Write-Host "Copies embarquees par des applications, plus anciennes que celle du systeme :" -ForegroundColor DarkYellow
+        Write-Host "(une appli qui plante sur MSVCP140.dll charge souvent SA copie avant celle de Windows)" -ForegroundColor DarkGray
+        $old | Sort-Object Version | Format-Table -AutoSize
+    } else {
+        Write-Host "Aucune copie locale plus ancienne trouvee." -ForegroundColor DarkGray
+    }
+}
+` : "";
+
+  const calls = [];
+  if (office) calls.push(`Remove-OfficeLanguages -Keep "${psSafe(keep)}"`);
+  if (vc) calls.push(`Reset-VCRedist`);
+
+  return `#Requires -RunAsAdministrator
+<#
+.SYNOPSIS
+    Nettoyage du poste Dell : langues Office superflues et redistribuables Visual C++ v14.
+.DESCRIPTION
+    ${office ? "Langues Office : conserve uniquement " + psSafe(keep) + " (un produit sans cette langue n'est jamais modifie)." : ""}
+    ${vc ? "Visual C++ v14 : desinstalle toutes les versions 2015-2026 puis reinstalle la derniere x64 et x86." : ""}
+    A executer en tant qu'administrateur. Script rejouable.
+#>
+
+$ErrorActionPreference = "Continue"
+$ProgressPreference = "SilentlyContinue"
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
+Write-Host "=== Preparation poste Dell - Nettoyage ===" -ForegroundColor Cyan
+
+$script:results = @()
+$script:rebootNeeded = $false
+$uninstallPaths = @(
+    "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*",
+    "HKLM:\\SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\*"
+)
+
+function Add-Result($name, $ok, $detail) {
+    $statut = if ($ok) { if ($detail) { "OK ($detail)" } else { "OK" } } else { "A verifier : $detail" }
+    $script:results += [PSCustomObject]@{ Element = $name; Statut = $statut }
+}
+${PS_INSTALLER_HELPERS}
+Confirm-NoPendingReboot
+${fnOffice}${fnVc}
+# ---- Execution ----
+${calls.join("\n")}
+
+Write-Host ""
+Write-Host "=== Resume du nettoyage ===" -ForegroundColor Cyan
+$script:results | Format-Table -AutoSize
+
+if ($script:rebootNeeded) {
+    Write-Host "Un redemarrage est necessaire pour finaliser (DLL remplacees au prochain demarrage)." -ForegroundColor Yellow
+} else {
+    Write-Host "Redemarrage conseille pour que toutes les applis rechargent la nouvelle MSVCP140.dll." -ForegroundColor Yellow
+}
+Write-Host "=== Termine ===" -ForegroundColor Green
+`;
+}
+
+function downloadCleanScript(){
+  const office = document.getElementById("clean-office").checked;
+  const vc = document.getElementById("clean-vc").checked;
+  if (!office && !vc){
+    alert("Coche au moins une action de nettoyage.");
+    return;
+  }
+  deliver(4, generateCleanScript(office, vc, document.getElementById("office-keep").value));
+}
+
+function downloadScript(id){
+  deliver(id, atob(SCRIPTS[id].b64));
+}
+
+// ---- Checklist persistence (localStorage) ----
+function updateProgress(){
+  let done = 0;
+  for (let i = 1; i <= 4; i++){
+    const box = document.getElementById("chk-" + i);
+    try { localStorage.setItem("dell-prep-step-" + i, box.checked); } catch(e) {}
+    if (box.checked) done++;
+  }
+  document.getElementById("progress-label").textContent = done + " / 4 étapes cochées";
+  document.getElementById("progress-bar").style.width = (done / 4 * 100) + "%";
+}
+
+function resetChecklist(){
+  for (let i = 1; i <= 4; i++){
+    try { localStorage.removeItem("dell-prep-step-" + i); } catch(e) {}
+    document.getElementById("chk-" + i).checked = false;
+  }
+  updateProgress();
+}
+
+(function init(){
+  try {
+    for (let i = 1; i <= 4; i++){
+      if (localStorage.getItem("dell-prep-step-" + i) === "true") document.getElementById("chk-" + i).checked = true;
+    }
+    APPS_CATALOG.forEach(a => {
+      const saved = localStorage.getItem("dell-prep-app-" + a.key);
+      if (saved !== null) document.getElementById("app-" + a.key).checked = (saved === "true");
+    });
+    document.getElementById("rhino-email").value = localStorage.getItem("dell-prep-rhino-email") || "";
+    document.getElementById("rhino-zoo").value = localStorage.getItem("dell-prep-rhino-zoo") || "";
+    const fr = localStorage.getItem("dell-prep-rhino-fr");
+    if (fr !== null) document.getElementById("rhino-fr").checked = (fr === "true");
+    const co = localStorage.getItem("dell-prep-clean-office");
+    if (co !== null) document.getElementById("clean-office").checked = (co === "true");
+    const cv = localStorage.getItem("dell-prep-clean-vc");
+    if (cv !== null) document.getElementById("clean-vc").checked = (cv === "true");
+    const ok = localStorage.getItem("dell-prep-office-keep");
+    if (ok) document.getElementById("office-keep").value = ok;
+    const m = localStorage.getItem("dell-prep-mode");
+    if (m === "cmd" || m === "ps1") MODE = m;
+  } catch(e) {}
+  setMode(MODE);
+  updateProgress();
+})();
+
+</script>
+
+</body>
+</html>
